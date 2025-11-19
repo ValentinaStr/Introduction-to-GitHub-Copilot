@@ -54,8 +54,9 @@
     header.appendChild(count);
     header.appendChild(toggle);
 
+    // Bulleted list version
     const list = document.createElement("ul");
-    list.className = "participants-list";
+    list.className = "participants-list bulleted";
 
     participants.forEach((p) => {
       const li = document.createElement("li");
