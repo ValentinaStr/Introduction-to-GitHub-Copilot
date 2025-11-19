@@ -4,6 +4,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupForm = document.getElementById("signup-form");
   const messageDiv = document.getElementById("message");
 
+  // helper for avatar initials
+  function getInitials(name) {
+    if (!name) return "";
+    const parts = name.trim().split(/\s+/);
+    return (parts[0][0] || "").toUpperCase() + (parts[1] ? parts[1][0].toUpperCase() : "");
+  }
+
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
@@ -26,6 +33,46 @@ document.addEventListener("DOMContentLoaded", () => {
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
         `;
+
+        // Build participants section (bulleted list)
+        const participants = Array.isArray(details.participants) ? details.participants : [];
+
+        let participantsHtml = '';
+        if (participants.length === 0) {
+          participantsHtml = `
+            <div class="participants">
+              <div class="participants-header">
+                <div class="participants-title">Participants</div>
+                <div class="participants-count">0</div>
+              </div>
+              <div class="participants-list" style="margin-top:8px;color:#666;font-size:13px">No one signed up yet</div>
+            </div>
+          `;
+        } else {
+          const items = participants.map(p => {
+            const nameText = p.name || p.full_name || "Unknown";
+            const avatarUrl = p.avatarUrl || p.avatar_url || "";
+            const avatarHtml = avatarUrl
+              ? `<span class="participant-avatar"><img src="${avatarUrl}" alt="${nameText} avatar"></span>`
+              : `<span class="participant-avatar">${getInitials(nameText)}</span>`;
+
+            return `<li>${avatarHtml}<span class="participant-name">${nameText}</span></li>`;
+          }).join("");
+
+          participantsHtml = `
+            <div class="participants">
+              <div class="participants-header">
+                <div class="participants-title">Participants</div>
+                <div class="participants-count">${participants.length}</div>
+              </div>
+              <ul class="participants-list bulleted">
+                ${items}
+              </ul>
+            </div>
+          `;
+        }
+
+        activityCard.insertAdjacentHTML("beforeend", participantsHtml);
 
         activitiesList.appendChild(activityCard);
 
