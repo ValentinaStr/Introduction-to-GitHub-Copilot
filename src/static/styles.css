@@ -199,6 +199,16 @@ footer {
   gap: 8px 10px;
 }
 
+/* Bulleted participants list (classic bullets, but pretty) */
+.activity-card .participants-list.bulleted {
+  list-style: disc;
+  list-style-position: outside;
+  padding-left: 22px; /* space for bullets */
+  display: block;
+  margin-top: 8px;
+  gap: 0;
+}
+
 /* Each participant item */
 .activity-card .participants-list li {
   display: flex;
@@ -210,6 +220,19 @@ footer {
   border-radius: 20px;
   box-shadow: 0 1px 0 rgba(0,0,0,0.02);
   transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+/* Each bulleted item: keep avatar + name aligned, but remove chip visuals */
+.activity-card .participants-list.bulleted li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  padding: 6px 0;
+  margin: 0;
+  border-radius: 0;
+  box-shadow: none;
 }
 
 /* Avatar (initials or image) */
@@ -234,6 +257,27 @@ footer {
   height: 100%;
   object-fit: cover;
   display: block;
+}
+
+/* Slightly larger name for list readability */
+.activity-card .participants-list.bulleted .participant-name {
+  font-size: 14px;
+  color: #222;
+}
+
+/* Make avatar slightly smaller in bulleted mode to keep list compact */
+.activity-card .participants-list.bulleted .participant-avatar {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  font-size: 11px;
+}
+
+/* Ensure images in small avatars scale correctly */
+.activity-card .participants-list.bulleted .participant-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Participant name */
@@ -270,5 +314,12 @@ footer {
   }
   .activity-card .participant-name {
     display: none; /* keep it compact on very small screens; shows avatars only */
+  }
+}
+
+/* On very small screens hide names to keep list compact if needed */
+@media (max-width: 420px) {
+  .activity-card .participants-list.bulleted .participant-name {
+    display: none;
   }
 }
