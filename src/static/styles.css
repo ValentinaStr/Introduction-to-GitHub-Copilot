@@ -142,3 +142,133 @@ footer {
   padding: 20px;
   color: #666;
 }
+
+/* Participants section inside activity cards */
+.activity-card .participants {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px dashed #e6e6e6;
+  display: block;
+  font-size: 14px;
+  color: #444;
+}
+
+/* Header row: title and count / toggle */
+.activity-card .participants-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.activity-card .participants-title {
+  font-weight: 600;
+  color: #1a237e;
+}
+
+.activity-card .participants-count {
+  background: #eef3ff;
+  color: #1a237e;
+  border: 1px solid #d7defc;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+/* Toggle button (optional) */
+.activity-card .participants-toggle {
+  background: transparent;
+  border: none;
+  color: #3949ab;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Participants list */
+.activity-card .participants-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+
+/* Each participant item */
+.activity-card .participants-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  padding: 6px 8px;
+  border-radius: 20px;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+/* Avatar (initials or image) */
+.activity-card .participant-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#8ab6ff,#6b8cff);
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+  flex: 0 0 28px;
+  overflow: hidden;
+}
+
+/* If using an <img> inside avatar */
+.activity-card .participant-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Participant name */
+.activity-card .participant-name {
+  font-size: 13px;
+  color: #222;
+}
+
+/* Hover effect on participant chip */
+.activity-card .participants-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(40,50,70,0.06);
+}
+
+/* Collapsed state: smoothly hide list while keeping header visible */
+.activity-card .participants.collapsed .participants-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 260ms ease;
+  padding: 0;
+  gap: 0;
+}
+
+/* Expanded state: allow list to grow */
+.activity-card .participants .participants-list {
+  max-height: 500px;
+  transition: max-height 260ms ease;
+}
+
+/* Responsive tweaks: stack chips on small screens */
+@media (max-width: 480px) {
+  .activity-card .participants-list {
+    gap: 6px;
+  }
+  .activity-card .participant-name {
+    display: none; /* keep it compact on very small screens; shows avatars only */
+  }
+}
